@@ -17,13 +17,22 @@ void setup()
   Serial.begin(115200);
   Serial.println("Meshtastic Compression Test");
 
+  const char *message = "Hello friends!";
+  uint32_t len = strlen(message);
+  char output[100];
+  int result = unishox2_compress_simple(message, len, output);
+  Serial.println(message);
+  Serial.print("Compressed length: ");
+  Serial.println(result);
 
-  char *message[] = {"Hello friends!"};
-  uint32_t len = 20;
-  char *output[] = {};
-  int result = unishox2_compress_simple(*message, len, *output);
-  Serial.println(*message);
-  Serial.println(*output);
+  char decompressed[200];
+  result = unishox2_decompress_simple(output, result, decompressed);
+  decompressed[result] = '\0';
+  Serial.print("Decompressed length: ");
+  Serial.println(result);
+  Serial.print("Decompressed string: ");
+  Serial.println(decompressed);
+
 }
 
 void loop()
