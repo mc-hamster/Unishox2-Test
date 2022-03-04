@@ -1,7 +1,10 @@
 
 
 #include <Arduino.h>
-#include "mesh/compression/unishox2.h"
+extern "C" {
+    #include "mesh/compression/unishox2.h"
+}
+
 
 
 void setup()
